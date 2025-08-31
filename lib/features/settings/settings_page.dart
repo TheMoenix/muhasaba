@@ -213,61 +213,31 @@ class SettingsPage extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.theme),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: Text(l10n.themeLight),
-              leading: Radio<ThemeMode>(
+        content: RadioGroup<ThemeMode>(
+          // use watch so UI rebuilds when theme changes
+          groupValue: ref.watch(themeModeProvider),
+          onChanged: (ThemeMode? value) {
+            if (value == null) return;
+            controller.setThemeMode(value);
+            Navigator.of(context).pop();
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<ThemeMode>(
+                title: Text(l10n.themeLight),
                 value: ThemeMode.light,
-                groupValue: ref.read(themeModeProvider),
-                onChanged: (value) {
-                  if (value != null) {
-                    controller.setThemeMode(value);
-                    Navigator.of(context).pop();
-                  }
-                },
               ),
-              onTap: () {
-                controller.setThemeMode(ThemeMode.light);
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text(l10n.themeDark),
-              leading: Radio<ThemeMode>(
+              RadioListTile<ThemeMode>(
+                title: Text(l10n.themeDark),
                 value: ThemeMode.dark,
-                groupValue: ref.read(themeModeProvider),
-                onChanged: (value) {
-                  if (value != null) {
-                    controller.setThemeMode(value);
-                    Navigator.of(context).pop();
-                  }
-                },
               ),
-              onTap: () {
-                controller.setThemeMode(ThemeMode.dark);
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text(l10n.themeSystem),
-              leading: Radio<ThemeMode>(
+              RadioListTile<ThemeMode>(
+                title: Text(l10n.themeSystem),
                 value: ThemeMode.system,
-                groupValue: ref.read(themeModeProvider),
-                onChanged: (value) {
-                  if (value != null) {
-                    controller.setThemeMode(value);
-                    Navigator.of(context).pop();
-                  }
-                },
               ),
-              onTap: () {
-                controller.setThemeMode(ThemeMode.system);
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -283,44 +253,27 @@ class SettingsPage extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.language),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              title: Text(l10n.arabic),
-              leading: Radio<String>(
-                value: 'ar',
-                groupValue: ref.read(localeProvider).languageCode,
-                onChanged: (value) {
-                  if (value != null) {
-                    controller.setLocale(Locale(value));
-                    Navigator.of(context).pop();
-                  }
-                },
+        content: RadioGroup<Locale>(
+          // use watch so UI rebuilds when locale changes
+          groupValue: ref.watch(localeProvider),
+          onChanged: (Locale? value) {
+            if (value == null) return;
+            controller.setLocale(value);
+            Navigator.of(context).pop();
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<Locale>(
+                title: Text(l10n.english),
+                value: const Locale('en'),
               ),
-              onTap: () {
-                controller.setLocale(const Locale('ar'));
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text(l10n.english),
-              leading: Radio<String>(
-                value: 'en',
-                groupValue: ref.read(localeProvider).languageCode,
-                onChanged: (value) {
-                  if (value != null) {
-                    controller.setLocale(Locale(value));
-                    Navigator.of(context).pop();
-                  }
-                },
+              RadioListTile<Locale>(
+                title: Text(l10n.arabic),
+                value: const Locale('ar'),
               ),
-              onTap: () {
-                controller.setLocale(const Locale('en'));
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

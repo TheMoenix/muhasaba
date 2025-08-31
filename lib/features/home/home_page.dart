@@ -18,63 +18,68 @@ class HomePage extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Column(
-        children: [
-          // Day header with navigation and summary
-          Padding(padding: const EdgeInsets.all(16), child: const DayHeader()),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Day header with navigation and summary
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: const DayHeader(),
+            ),
 
-          // Main content area
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  // Use row layout for wider screens, column for narrow
-                  if (constraints.maxWidth > 600) {
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: NewColumnCard(
-                            type: EntryType.good,
-                            title: l10n.good,
-                            entries: goodEntries,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: NewColumnCard(
-                            type: EntryType.bad,
-                            title: l10n.bad,
-                            entries: badEntries,
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return SingleChildScrollView(
-                      child: Column(
+            // Main content area
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    // Use row layout for wider screens, column for narrow
+                    if (constraints.maxWidth > 600) {
+                      return Row(
                         children: [
-                          NewColumnCard(
-                            type: EntryType.good,
-                            title: l10n.good,
-                            entries: goodEntries,
+                          Expanded(
+                            child: NewColumnCard(
+                              type: EntryType.good,
+                              title: l10n.good,
+                              entries: goodEntries,
+                            ),
                           ),
-                          const SizedBox(height: 16),
-                          NewColumnCard(
-                            type: EntryType.bad,
-                            title: l10n.bad,
-                            entries: badEntries,
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: NewColumnCard(
+                              type: EntryType.bad,
+                              title: l10n.bad,
+                              entries: badEntries,
+                            ),
                           ),
-                          const SizedBox(height: 16),
                         ],
-                      ),
-                    );
-                  }
-                },
+                      );
+                    } else {
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            NewColumnCard(
+                              type: EntryType.good,
+                              title: l10n.good,
+                              entries: goodEntries,
+                            ),
+                            const SizedBox(height: 16),
+                            NewColumnCard(
+                              type: EntryType.bad,
+                              title: l10n.bad,
+                              entries: badEntries,
+                            ),
+                            const SizedBox(height: 16),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
