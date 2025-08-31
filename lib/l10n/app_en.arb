@@ -103,7 +103,11 @@
   },
   "dateFormat": "EEEE, MMMM d, y",
   "@dateFormat": {
-    "description": "Date format for display"
+    "description": "Full date format with day of week"
+  },
+  "dateFormatShort": "MMM d, y",
+  "@dateFormatShort": {
+    "description": "Short date format for headers"
   },
   "appearance": "Appearance",
   "@appearance": {
@@ -233,5 +237,25 @@
   "tapToAdd": "Tap + to add a quick entry",
   "@tapToAdd": {
     "description": "Tap to add instruction"
+  },
+  "addActionPlaceholder": "Add action...",
+  "@addActionPlaceholder": {
+    "description": "Placeholder text for action input field"
+  },
+  "defaultGoodAction": "Good action",
+  "@defaultGoodAction": {
+    "description": "Default note for quick good actions"
+  },
+  "defaultBadAction": "Bad action",
+  "@defaultBadAction": {
+    "description": "Default note for quick bad actions"
+  },
+  "noGoodActionsToday": "No good actions today",
+  "@noGoodActionsToday": {
+    "description": "Empty state message for good actions"
+  },
+  "noBadActionsToday": "No bad actions today",
+  "@noBadActionsToday": {
+    "description": "Empty state message for bad actions"
   }
 }

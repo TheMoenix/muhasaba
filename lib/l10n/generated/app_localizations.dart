@@ -242,11 +242,17 @@ abstract class AppLocalizations {
   /// **'{score}'**
   String scoreValue(int score);
 
-  /// Date format for display
+  /// Full date format with day of week
   ///
   /// In en, this message translates to:
   /// **'EEEE, MMMM d, y'**
   String get dateFormat;
+
+  /// Short date format for headers
+  ///
+  /// In en, this message translates to:
+  /// **'MMM d, y'**
+  String get dateFormatShort;
 
   /// Appearance section title
   ///
@@ -403,6 +409,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap + to add a quick entry'**
   String get tapToAdd;
+
+  /// Placeholder text for action input field
+  ///
+  /// In en, this message translates to:
+  /// **'Add action...'**
+  String get addActionPlaceholder;
+
+  /// Default note for quick good actions
+  ///
+  /// In en, this message translates to:
+  /// **'Good action'**
+  String get defaultGoodAction;
+
+  /// Default note for quick bad actions
+  ///
+  /// In en, this message translates to:
+  /// **'Bad action'**
+  String get defaultBadAction;
+
+  /// Empty state message for good actions
+  ///
+  /// In en, this message translates to:
+  /// **'No good actions today'**
+  String get noGoodActionsToday;
+
+  /// Empty state message for bad actions
+  ///
+  /// In en, this message translates to:
+  /// **'No bad actions today'**
+  String get noBadActionsToday;
 }
 
 class _AppLocalizationsDelegate

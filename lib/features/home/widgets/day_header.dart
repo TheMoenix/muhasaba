@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../../../core/date_utils.dart' as date_utils;
 import '../../../core/theme.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -66,9 +67,10 @@ class DayHeader extends ConsumerWidget {
                             Text(
                               date_utils.DateUtils.isToday(selectedDay)
                                   ? l10n.today
-                                  : date_utils.DateUtils.formatDate(
-                                      selectedDay,
-                                    ),
+                                  : DateFormat(
+                                      l10n.dateFormatShort,
+                                      l10n.localeName,
+                                    ).format(selectedDay),
                               style: const TextStyle(
                                 color: AppTheme.textPrimary,
                                 fontSize: 20,

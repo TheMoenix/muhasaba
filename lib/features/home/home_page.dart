@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../../core/date_utils.dart' as date_utils;
 import '../../core/theme.dart';
 import '../../data/entry_model.dart';
@@ -95,7 +96,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: Text(
                             date_utils.DateUtils.isToday(selectedDay)
                                 ? l10n.today
-                                : date_utils.DateUtils.formatDate(selectedDay),
+                                : DateFormat(
+                                    l10n.dateFormatShort,
+                                    l10n.localeName,
+                                  ).format(selectedDay),
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -206,6 +210,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: _buildEntriesColumn(
                       entries: goodEntries,
                       type: EntryType.good,
+                      l10n: l10n,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -214,6 +219,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: _buildEntriesColumn(
                       entries: badEntries,
                       type: EntryType.bad,
+                      l10n: l10n,
                     ),
                   ),
                 ],
@@ -257,11 +263,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                         controller: _textController,
                         style: const TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          hintText: 'Add action...',
-                          hintStyle: TextStyle(color: Colors.grey),
+                        decoration: InputDecoration(
+                          hintText: l10n.addActionPlaceholder,
+                          hintStyle: const TextStyle(color: Colors.grey),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 16),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                          ),
                         ),
                         onSubmitted: (value) => _handleQuickAdd(value),
                       ),
@@ -297,6 +305,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget _buildEntriesColumn({
     required List<DayEntry> entries,
     required EntryType type,
+    required AppLocalizations l10n,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -363,8 +372,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               padding: const EdgeInsets.all(32),
               child: Text(
                 type == EntryType.good
-                    ? 'No good actions today'
-                    : 'No bad actions today',
+                    ? l10n.noGoodActionsToday
+                    : l10n.noBadActionsToday,
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.5),
                   fontSize: 14,
@@ -386,11 +395,14 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   void _addQuickEntry(EntryType type) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(homeControllerProvider.notifier);
     final text = _textController.text.trim();
     final note = text.isNotEmpty
         ? text
-        : (type == EntryType.good ? 'Good action' : 'Bad action');
+        : (type == EntryType.good
+              ? l10n.defaultGoodAction
+              : l10n.defaultBadAction);
 
     controller.addEntry(type: type, score: 1, note: note);
 

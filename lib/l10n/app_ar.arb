@@ -25,6 +25,7 @@
   "emptyState": "لا توجد إدخالات لهذا اليوم. ابدأ في تتبع أعمالك!",
   "scoreValue": "{score}",
   "dateFormat": "EEEE، d MMMM، y",
+  "dateFormatShort": "d MMM، y",
   "appearance": "المظهر",
   "behavior": "السلوك",
   "reminders": "التذكيرات",
@@ -50,5 +51,10 @@
   "selectDate": "اختر التاريخ",
   "net": "الصافي: {score}",
   "noEntriesYet": "لا توجد إدخالات {type} بعد",
-  "tapToAdd": "اضغط + لإضافة إدخال سريع"
+  "tapToAdd": "اضغط + لإضافة إدخال سريع",
+  "addActionPlaceholder": "أضف عمل...",
+  "defaultGoodAction": "عمل جيد",
+  "defaultBadAction": "عمل سيء",
+  "noGoodActionsToday": "لا توجد أعمال جيدة اليوم",
+  "noBadActionsToday": "لا توجد أعمال سيئة اليوم"
 }

@@ -88,6 +88,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateFormat => 'EEEE, MMMM d, y';
 
   @override
+  String get dateFormatShort => 'MMM d, y';
+
+  @override
   String get appearance => 'Appearance';
 
   @override
@@ -176,4 +179,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tapToAdd => 'Tap + to add a quick entry';
+
+  @override
+  String get addActionPlaceholder => 'Add action...';
+
+  @override
+  String get defaultGoodAction => 'Good action';
+
+  @override
+  String get defaultBadAction => 'Bad action';
+
+  @override
+  String get noGoodActionsToday => 'No good actions today';
+
+  @override
+  String get noBadActionsToday => 'No bad actions today';
 }
