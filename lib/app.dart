@@ -12,7 +12,7 @@ class MuhasabaApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp(
-      title: 'Muhasaba',
+      title: 'Muhasaba - Daily Action Tracker',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,

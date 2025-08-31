@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "muhasaba" "\0"
+            VALUE "FileDescription", "Muhasaba - Daily Action Tracker" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "muhasaba" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "muhasaba.exe" "\0"
-            VALUE "ProductName", "muhasaba" "\0"
+            VALUE "ProductName", "Muhasaba - Daily Action Tracker" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
