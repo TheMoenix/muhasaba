@@ -10,7 +10,7 @@ A Flutter application for tracking daily good and bad actions with optional note
 - **Daily Summary**: View net scores and progress at a glance
 - **Dark/Light Themes**: Modern UI with adaptive theming
 - **Local Storage**: All data stored securely on device using Hive database
-- **Cross-Platform**: Runs on Android, iOS, Web, Windows, macOS, and Linux
+- **Cross-Platform**: Runs on Android and iOS
 
 ## Getting Started
 
