@@ -24,6 +24,11 @@ final dailyReminderTimeProvider = StateProvider<String?>((ref) {
   return settingsRepository.dailyReminderTime;
 });
 
+final localeProvider = StateProvider<Locale>((ref) {
+  final settingsRepository = ref.watch(settingsRepositoryProvider);
+  return settingsRepository.locale;
+});
+
 // Controller
 class SettingsController extends StateNotifier<AsyncValue<void>> {
   SettingsController(this._settingsRepository, this._ref)
@@ -70,6 +75,17 @@ class SettingsController extends StateNotifier<AsyncValue<void>> {
     try {
       await _settingsRepository.setDailyReminderTime(time);
       _ref.read(dailyReminderTimeProvider.notifier).state = time;
+      state = const AsyncValue.data(null);
+    } catch (error, stackTrace) {
+      state = AsyncValue.error(error, stackTrace);
+    }
+  }
+
+  Future<void> setLocale(Locale locale) async {
+    state = const AsyncValue.loading();
+    try {
+      await _settingsRepository.setLocale(locale);
+      _ref.read(localeProvider.notifier).state = locale;
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace);

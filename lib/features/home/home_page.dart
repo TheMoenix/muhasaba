@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/entry_model.dart';
+import '../../l10n/generated/app_localizations.dart';
 import 'home_controller.dart';
 import 'widgets/new_column_card.dart';
 import 'widgets/day_header.dart';
@@ -10,6 +11,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectedDay = ref.watch(selectedDayProvider);
     final goodEntries = ref.watch(goodEntriesProvider(selectedDay));
     final badEntries = ref.watch(badEntriesProvider(selectedDay));
@@ -34,7 +36,7 @@ class HomePage extends ConsumerWidget {
                         Expanded(
                           child: NewColumnCard(
                             type: EntryType.good,
-                            title: 'Good',
+                            title: l10n.good,
                             entries: goodEntries,
                           ),
                         ),
@@ -42,7 +44,7 @@ class HomePage extends ConsumerWidget {
                         Expanded(
                           child: NewColumnCard(
                             type: EntryType.bad,
-                            title: 'Bad',
+                            title: l10n.bad,
                             entries: badEntries,
                           ),
                         ),
@@ -54,13 +56,13 @@ class HomePage extends ConsumerWidget {
                         children: [
                           NewColumnCard(
                             type: EntryType.good,
-                            title: 'Good',
+                            title: l10n.good,
                             entries: goodEntries,
                           ),
                           const SizedBox(height: 16),
                           NewColumnCard(
                             type: EntryType.bad,
-                            title: 'Bad',
+                            title: l10n.bad,
                             entries: badEntries,
                           ),
                           const SizedBox(height: 16),

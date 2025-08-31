@@ -6,6 +6,7 @@ class SettingsRepository {
   static const String _defaultIncrementKey = 'defaultIncrement';
   static const String _showNotesInListKey = 'showNotesInList';
   static const String _dailyReminderTimeKey = 'dailyReminderTime';
+  static const String _languageKey = 'language';
 
   final SharedPreferences _prefs;
 
@@ -70,6 +71,17 @@ class SettingsRepository {
     }
   }
 
+  // Language
+  Locale get locale {
+    final languageCode =
+        _prefs.getString(_languageKey) ?? 'ar'; // Default to Arabic
+    return Locale(languageCode);
+  }
+
+  Future<void> setLocale(Locale locale) async {
+    await _prefs.setString(_languageKey, locale.languageCode);
+  }
+
   // Initialize with defaults if first run
   Future<void> initializeDefaults() async {
     if (!_prefs.containsKey(_themeModeKey)) {
@@ -80,6 +92,9 @@ class SettingsRepository {
     }
     if (!_prefs.containsKey(_showNotesInListKey)) {
       await setShowNotesInList(true);
+    }
+    if (!_prefs.containsKey(_languageKey)) {
+      await setLocale(const Locale('ar')); // Default to Arabic
     }
   }
 }

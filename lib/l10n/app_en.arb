@@ -1,0 +1,108 @@
+{
+  "@@locale": "en",
+  "appTitle": "Muhasaba - Daily Action Tracker",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "appTitleShort": "Muhasaba",
+  "@appTitleShort": {
+    "description": "The short title of the application"
+  },
+  "good": "Good",
+  "@good": {
+    "description": "Label for good actions"
+  },
+  "bad": "Bad",
+  "@bad": {
+    "description": "Label for bad actions"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "addEntry": "Add Entry",
+  "@addEntry": {
+    "description": "Button text to add a new entry"
+  },
+  "addNote": "Add a note (optional)",
+  "@addNote": {
+    "description": "Placeholder text for note input"
+  },
+  "score": "Score",
+  "@score": {
+    "description": "Label for score input"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button text"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button text"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit button text"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button text"
+  },
+  "netScore": "Net Score",
+  "@netScore": {
+    "description": "Label for net score display"
+  },
+  "today": "Today",
+  "@today": {
+    "description": "Today button text"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language setting label"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme setting label"
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "System theme option"
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Light theme option"
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Dark theme option"
+  },
+  "arabic": "العربية",
+  "@arabic": {
+    "description": "Arabic language name"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language name"
+  },
+  "deleteEntryConfirm": "Are you sure you want to delete this entry?",
+  "@deleteEntryConfirm": {
+    "description": "Confirmation message for deleting an entry"
+  },
+  "emptyState": "No entries for this day. Start tracking your actions!",
+  "@emptyState": {
+    "description": "Message shown when there are no entries for the day"
+  },
+  "scoreValue": "{score}",
+  "@scoreValue": {
+    "description": "Score value display",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "dateFormat": "EEEE, MMMM d, y",
+  "@dateFormat": {
+    "description": "Date format for display"
+  }
+}
