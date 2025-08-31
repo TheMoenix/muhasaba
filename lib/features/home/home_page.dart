@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/entry_model.dart';
-import '../settings/settings_page.dart';
 import 'home_controller.dart';
-import 'widgets/column_card.dart';
+import 'widgets/new_column_card.dart';
 import 'widgets/day_header.dart';
 
 class HomePage extends ConsumerWidget {
@@ -16,21 +15,7 @@ class HomePage extends ConsumerWidget {
     final badEntries = ref.watch(badEntriesProvider(selectedDay));
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Muhasaba'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const SettingsPage()),
-              );
-            },
-            icon: const Icon(Icons.settings),
-            tooltip: 'Settings',
-          ),
-        ],
-      ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Column(
         children: [
           // Day header with navigation and summary
@@ -47,7 +32,7 @@ class HomePage extends ConsumerWidget {
                     return Row(
                       children: [
                         Expanded(
-                          child: ColumnCard(
+                          child: NewColumnCard(
                             type: EntryType.good,
                             title: 'Good',
                             entries: goodEntries,
@@ -55,7 +40,7 @@ class HomePage extends ConsumerWidget {
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: ColumnCard(
+                          child: NewColumnCard(
                             type: EntryType.bad,
                             title: 'Bad',
                             entries: badEntries,
@@ -67,13 +52,13 @@ class HomePage extends ConsumerWidget {
                     return SingleChildScrollView(
                       child: Column(
                         children: [
-                          ColumnCard(
+                          NewColumnCard(
                             type: EntryType.good,
                             title: 'Good',
                             entries: goodEntries,
                           ),
                           const SizedBox(height: 16),
-                          ColumnCard(
+                          NewColumnCard(
                             type: EntryType.bad,
                             title: 'Bad',
                             entries: badEntries,

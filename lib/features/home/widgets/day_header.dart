@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/date_utils.dart' as date_utils;
+import '../../../core/theme.dart';
 import '../home_controller.dart';
 
 class DayHeader extends ConsumerWidget {
@@ -11,105 +12,119 @@ class DayHeader extends ConsumerWidget {
     final selectedDay = ref.watch(selectedDayProvider);
     final totals = ref.watch(dayTotalsProvider(selectedDay));
 
-    return Row(
-      children: [
-        IconButton(
-          onPressed: () {
-            final previousDay = date_utils.DateUtils.previousDay(selectedDay);
-            ref.read(selectedDayProvider.notifier).state = previousDay;
-          },
-          icon: const Icon(Icons.chevron_left),
-          tooltip: 'Previous day',
-        ),
-        Expanded(
-          child: GestureDetector(
-            onTap: () => _showDatePicker(context, ref, selectedDay),
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    date_utils.DateUtils.isToday(selectedDay)
-                        ? 'Today'
-                        : date_utils.DateUtils.formatDate(selectedDay),
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // Settings button
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
+            },
+            icon: const Icon(Icons.settings),
+            iconSize: 24,
+          ),
+
+          // Date navigation and summary
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        final previousDay = date_utils.DateUtils.previousDay(
+                          selectedDay,
+                        );
+                        ref.read(selectedDayProvider.notifier).state =
+                            previousDay;
+                      },
+                      icon: const Icon(Icons.chevron_left),
+                      iconSize: 24,
                     ),
-                    textAlign: TextAlign.center,
+
+                    // Today button with dropdown arrow
+                    GestureDetector(
+                      onTap: () => _showDatePicker(context, ref, selectedDay),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.transparent,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              date_utils.DateUtils.isToday(selectedDay)
+                                  ? 'Today'
+                                  : date_utils.DateUtils.formatDate(
+                                      selectedDay,
+                                    ),
+                              style: const TextStyle(
+                                color: AppTheme.textPrimary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(
+                              Icons.expand_more,
+                              color: AppTheme.textPrimary,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    IconButton(
+                      onPressed: () {
+                        final nextDay = date_utils.DateUtils.nextDay(
+                          selectedDay,
+                        );
+                        // Don't allow going into the future
+                        if (!nextDay.isAfter(date_utils.DateUtils.today())) {
+                          ref.read(selectedDayProvider.notifier).state =
+                              nextDay;
+                        }
+                      },
+                      icon: Icon(
+                        Icons.chevron_right,
+                        color:
+                            date_utils.DateUtils.nextDay(
+                              selectedDay,
+                            ).isAfter(date_utils.DateUtils.today())
+                            ? AppTheme.textSecondary
+                            : AppTheme.textPrimary,
+                      ),
+                      iconSize: 24,
+                    ),
+                  ],
+                ),
+
+                // Net score
+                Text(
+                  'Net: ${totals.net >= 0 ? '' : ''}${totals.net}',
+                  style: const TextStyle(
+                    color: AppTheme.textPrimary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
-                  const SizedBox(height: 4),
-                  _buildSummaryChip(context, totals),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ),
-        IconButton(
-          onPressed: () {
-            final nextDay = date_utils.DateUtils.nextDay(selectedDay);
-            // Don't allow going into the future
-            if (!nextDay.isAfter(date_utils.DateUtils.today())) {
-              ref.read(selectedDayProvider.notifier).state = nextDay;
-            }
-          },
-          icon: const Icon(Icons.chevron_right),
-          tooltip: 'Next day',
-        ),
-        if (!date_utils.DateUtils.isToday(selectedDay))
-          TextButton(
-            onPressed: () {
-              ref.read(selectedDayProvider.notifier).state =
-                  date_utils.DateUtils.today();
-            },
-            child: const Text('Today'),
-          ),
-      ],
-    );
-  }
 
-  Widget _buildSummaryChip(
-    BuildContext context,
-    ({int good, int bad, int net}) totals,
-  ) {
-    final theme = Theme.of(context);
-    final netColor = totals.net > 0
-        ? theme.colorScheme.primary
-        : totals.net < 0
-        ? theme.colorScheme.error
-        : theme.colorScheme.onSurfaceVariant;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Good ${totals.good}',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.primary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Text(' | ', style: theme.textTheme.bodySmall),
-        Text(
-          'Bad ${totals.bad}',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.error,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Text(' | ', style: theme.textTheme.bodySmall),
-        Text(
-          'Net ${totals.net >= 0 ? '+' : ''}${totals.net}',
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: netColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ],
+          // Spacer to balance the settings button
+          const SizedBox(width: 48),
+        ],
+      ),
     );
   }
 
@@ -124,6 +139,19 @@ class DayHeader extends ConsumerWidget {
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
       helpText: 'Select date',
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: AppTheme.goodColor,
+              onPrimary: Colors.black,
+              surface: AppTheme.cardBackground,
+              onSurface: AppTheme.textPrimary,
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (picked != null) {
