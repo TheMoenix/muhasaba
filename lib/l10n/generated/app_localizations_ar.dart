@@ -84,4 +84,94 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dateFormat => 'EEEE، d MMMM، y';
+
+  @override
+  String get appearance => 'المظهر';
+
+  @override
+  String get behavior => 'السلوك';
+
+  @override
+  String get reminders => 'التذكيرات';
+
+  @override
+  String get about => 'حول التطبيق';
+
+  @override
+  String get defaultIncrement => 'الزيادة الافتراضية';
+
+  @override
+  String defaultIncrementDescription(int increment) {
+    return 'أزرار +/- السريعة تضيف $increment نقاط';
+  }
+
+  @override
+  String get showNotesInList => 'إظهار الملاحظات في القائمة';
+
+  @override
+  String get showNotesInListDescription =>
+      'عرض ملاحظات الإدخال بدلاً من النقاط فقط';
+
+  @override
+  String get dailyReminder => 'التذكير اليومي';
+
+  @override
+  String remindMeAt(String time) {
+    return 'ذكرني في $time';
+  }
+
+  @override
+  String get noReminderSet => 'لم يتم تعيين تذكير';
+
+  @override
+  String get appDescription =>
+      'متتبع الأعمال الجيدة والسيئة اليومية\nالإصدار 1.0.0';
+
+  @override
+  String get type => 'النوع';
+
+  @override
+  String addAction(String type) {
+    return 'إضافة عمل $type...';
+  }
+
+  @override
+  String get editEntry => 'تعديل الإدخال';
+
+  @override
+  String get addEntryTitle => 'إضافة إدخال';
+
+  @override
+  String get noteOptional => 'ملاحظة (اختياري)';
+
+  @override
+  String get addNote2 => 'إضافة ملاحظة...';
+
+  @override
+  String get update => 'تحديث';
+
+  @override
+  String get deleteEntry => 'حذف الإدخال';
+
+  @override
+  String get entryDeleted => 'تم حذف الإدخال';
+
+  @override
+  String get undo => 'تراجع';
+
+  @override
+  String get selectDate => 'اختر التاريخ';
+
+  @override
+  String net(String score) {
+    return 'الصافي: $score';
+  }
+
+  @override
+  String noEntriesYet(String type) {
+    return 'لا توجد إدخالات $type بعد';
+  }
+
+  @override
+  String get tapToAdd => 'اضغط + لإضافة إدخال سريع';
 }

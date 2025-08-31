@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/entry_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../../settings/settings_controller.dart';
 import '../home_controller.dart';
 import 'add_entry_sheet.dart';
@@ -12,6 +13,7 @@ class EntryTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final showNotes = ref.watch(showNotesInListProvider);
     final theme = Theme.of(context);
 
@@ -24,7 +26,7 @@ class EntryTile extends ConsumerWidget {
         color: theme.colorScheme.errorContainer,
         child: Icon(Icons.delete, color: theme.colorScheme.onErrorContainer),
       ),
-      confirmDismiss: (direction) => _confirmDelete(context),
+      confirmDismiss: (direction) => _confirmDelete(context, l10n),
       onDismissed: (direction) => _deleteEntry(context, ref),
       child: Card(
         child: ListTile(
@@ -46,11 +48,11 @@ class EntryTile extends ConsumerWidget {
               : null,
           subtitle: showNotes && entry.note != null && entry.note!.isNotEmpty
               ? Text(
-                  '${entry.type == EntryType.good ? 'Good' : 'Bad'} • ${_formatTime(entry.date)}',
+                  '${entry.type == EntryType.good ? l10n.good : l10n.bad} • ${_formatTime(entry.date)}',
                   style: theme.textTheme.bodySmall,
                 )
               : Text(
-                  '${entry.type == EntryType.good ? 'Good' : 'Bad'} • ${_formatTime(entry.date)}',
+                  '${entry.type == EntryType.good ? l10n.good : l10n.bad} • ${_formatTime(entry.date)}',
                 ),
           trailing: const Icon(Icons.edit),
         ),
@@ -62,20 +64,20 @@ class EntryTile extends ConsumerWidget {
     return '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
   }
 
-  Future<bool?> _confirmDelete(BuildContext context) {
+  Future<bool?> _confirmDelete(BuildContext context, AppLocalizations l10n) {
     return showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Entry'),
-        content: const Text('Are you sure you want to delete this entry?'),
+        title: Text(l10n.deleteEntry),
+        content: Text(l10n.deleteEntryConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Delete'),
+            child: Text(l10n.delete),
           ),
         ],
       ),
@@ -83,14 +85,15 @@ class EntryTile extends ConsumerWidget {
   }
 
   void _deleteEntry(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(homeControllerProvider.notifier);
     controller.deleteEntry(entry.id);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: const Text('Entry deleted'),
+        content: Text(l10n.entryDeleted),
         action: SnackBarAction(
-          label: 'Undo',
+          label: l10n.undo,
           onPressed: () {
             // Re-add the entry
             controller.addEntry(

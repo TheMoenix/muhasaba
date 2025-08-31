@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/entry_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../home_controller.dart';
 
 class AddEntrySheet extends ConsumerStatefulWidget {
@@ -36,6 +37,7 @@ class _AddEntrySheetState extends ConsumerState<AddEntrySheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return Padding(
@@ -51,26 +53,28 @@ class _AddEntrySheetState extends ConsumerState<AddEntrySheet> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                widget.entryToEdit != null ? 'Edit Entry' : 'Add Entry',
+                widget.entryToEdit != null
+                    ? l10n.editEntry
+                    : l10n.addEntryTitle,
                 style: theme.textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
 
               // Type selector
-              Text('Type', style: theme.textTheme.titleMedium),
+              Text(l10n.type, style: theme.textTheme.titleMedium),
               const SizedBox(height: 8),
               SegmentedButton<EntryType>(
-                segments: const [
+                segments: [
                   ButtonSegment(
                     value: EntryType.good,
-                    label: Text('Good'),
-                    icon: Icon(Icons.thumb_up),
+                    label: Text(l10n.good),
+                    icon: const Icon(Icons.thumb_up),
                   ),
                   ButtonSegment(
                     value: EntryType.bad,
-                    label: Text('Bad'),
-                    icon: Icon(Icons.thumb_down),
+                    label: Text(l10n.bad),
+                    icon: const Icon(Icons.thumb_down),
                   ),
                 ],
                 selected: {_selectedType},
@@ -83,7 +87,7 @@ class _AddEntrySheetState extends ConsumerState<AddEntrySheet> {
               const SizedBox(height: 24),
 
               // Score selector
-              Text('Score', style: theme.textTheme.titleMedium),
+              Text(l10n.score, style: theme.textTheme.titleMedium),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -118,13 +122,13 @@ class _AddEntrySheetState extends ConsumerState<AddEntrySheet> {
               const SizedBox(height: 24),
 
               // Note field
-              Text('Note (optional)', style: theme.textTheme.titleMedium),
+              Text(l10n.noteOptional, style: theme.textTheme.titleMedium),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _noteController,
-                decoration: const InputDecoration(
-                  hintText: 'Add a note...',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  hintText: l10n.addNote2,
+                  border: const OutlineInputBorder(),
                 ),
                 maxLines: 3,
                 maxLength: 200,
@@ -137,7 +141,7 @@ class _AddEntrySheetState extends ConsumerState<AddEntrySheet> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
+                      child: Text(l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -145,7 +149,7 @@ class _AddEntrySheetState extends ConsumerState<AddEntrySheet> {
                     child: FilledButton(
                       onPressed: _saveEntry,
                       child: Text(
-                        widget.entryToEdit != null ? 'Update' : 'Save',
+                        widget.entryToEdit != null ? l10n.update : l10n.save,
                       ),
                     ),
                   ),

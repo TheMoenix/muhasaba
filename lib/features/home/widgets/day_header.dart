@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/date_utils.dart' as date_utils;
 import '../../../core/theme.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../home_controller.dart';
 
 class DayHeader extends ConsumerWidget {
@@ -9,6 +10,7 @@ class DayHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final selectedDay = ref.watch(selectedDayProvider);
     final totals = ref.watch(dayTotalsProvider(selectedDay));
 
@@ -47,7 +49,8 @@ class DayHeader extends ConsumerWidget {
 
                     // Today button with dropdown arrow
                     GestureDetector(
-                      onTap: () => _showDatePicker(context, ref, selectedDay),
+                      onTap: () =>
+                          _showDatePicker(context, ref, selectedDay, l10n),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
@@ -62,7 +65,7 @@ class DayHeader extends ConsumerWidget {
                           children: [
                             Text(
                               date_utils.DateUtils.isToday(selectedDay)
-                                  ? 'Today'
+                                  ? l10n.today
                                   : date_utils.DateUtils.formatDate(
                                       selectedDay,
                                     ),
@@ -110,7 +113,7 @@ class DayHeader extends ConsumerWidget {
 
                 // Net score
                 Text(
-                  'Net: ${totals.net >= 0 ? '' : ''}${totals.net}',
+                  l10n.net('${totals.net >= 0 ? '' : ''}${totals.net}'),
                   style: const TextStyle(
                     color: AppTheme.textPrimary,
                     fontSize: 14,
@@ -132,13 +135,14 @@ class DayHeader extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     DateTime selectedDay,
+    AppLocalizations l10n,
   ) async {
     final picked = await showDatePicker(
       context: context,
       initialDate: selectedDay,
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
-      helpText: 'Select date',
+      helpText: l10n.selectDate,
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(

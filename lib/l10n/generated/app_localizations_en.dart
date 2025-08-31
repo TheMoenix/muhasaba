@@ -86,4 +86,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dateFormat => 'EEEE, MMMM d, y';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get behavior => 'Behavior';
+
+  @override
+  String get reminders => 'Reminders';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get defaultIncrement => 'Default increment';
+
+  @override
+  String defaultIncrementDescription(int increment) {
+    return 'Quick +/- buttons add $increment points';
+  }
+
+  @override
+  String get showNotesInList => 'Show notes in list';
+
+  @override
+  String get showNotesInListDescription =>
+      'Display entry notes instead of just scores';
+
+  @override
+  String get dailyReminder => 'Daily reminder';
+
+  @override
+  String remindMeAt(String time) {
+    return 'Remind me at $time';
+  }
+
+  @override
+  String get noReminderSet => 'No reminder set';
+
+  @override
+  String get appDescription =>
+      'Daily good and bad actions tracker\nVersion 1.0.0';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String addAction(String type) {
+    return 'Add a $type action...';
+  }
+
+  @override
+  String get editEntry => 'Edit Entry';
+
+  @override
+  String get addEntryTitle => 'Add Entry';
+
+  @override
+  String get noteOptional => 'Note (optional)';
+
+  @override
+  String get addNote2 => 'Add a note...';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get deleteEntry => 'Delete Entry';
+
+  @override
+  String get entryDeleted => 'Entry deleted';
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get selectDate => 'Select date';
+
+  @override
+  String net(String score) {
+    return 'Net: $score';
+  }
+
+  @override
+  String noEntriesYet(String type) {
+    return 'No $type entries yet';
+  }
+
+  @override
+  String get tapToAdd => 'Tap + to add a quick entry';
 }

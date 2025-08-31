@@ -16,7 +16,7 @@ class MuhasabaApp extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
 
     return MaterialApp(
-      title: 'Muhasaba - Daily Action Tracker',
+      title: 'Muhasaba',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,

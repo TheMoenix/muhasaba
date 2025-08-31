@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/entry_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import 'add_entry_sheet.dart';
 import 'entry_tile.dart';
 import 'quick_actions.dart';
@@ -19,6 +20,7 @@ class ColumnCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final cardColor = type == EntryType.good
         ? theme.colorScheme.primaryContainer
@@ -72,7 +74,7 @@ class ColumnCard extends ConsumerWidget {
 
             // Entries list
             if (entries.isEmpty)
-              _buildEmptyState(context, onCardColor)
+              _buildEmptyState(context, onCardColor, l10n)
             else
               ...entries.map(
                 (entry) => Padding(
@@ -87,7 +89,7 @@ class ColumnCard extends ConsumerWidget {
             OutlinedButton.icon(
               onPressed: () => _showAddEntrySheet(context),
               icon: const Icon(Icons.add),
-              label: const Text('Add Entry'),
+              label: Text(l10n.addEntry),
               style: OutlinedButton.styleFrom(
                 foregroundColor: onCardColor,
                 side: BorderSide(color: onCardColor),
@@ -99,7 +101,11 @@ class ColumnCard extends ConsumerWidget {
     );
   }
 
-  Widget _buildEmptyState(BuildContext context, Color color) {
+  Widget _buildEmptyState(
+    BuildContext context,
+    Color color,
+    AppLocalizations l10n,
+  ) {
     return Container(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -111,7 +117,7 @@ class ColumnCard extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'No ${type.name} entries yet',
+            l10n.noEntriesYet(type.name),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: color.withValues(alpha: 0.8),
             ),
@@ -119,7 +125,7 @@ class ColumnCard extends ConsumerWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'Tap + to add a quick entry',
+            l10n.tapToAdd,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: color.withValues(alpha: 0.6),
             ),

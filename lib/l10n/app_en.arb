@@ -104,5 +104,134 @@
   "dateFormat": "EEEE, MMMM d, y",
   "@dateFormat": {
     "description": "Date format for display"
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Appearance section title"
+  },
+  "behavior": "Behavior",
+  "@behavior": {
+    "description": "Behavior section title"
+  },
+  "reminders": "Reminders",
+  "@reminders": {
+    "description": "Reminders section title"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About section title"
+  },
+  "defaultIncrement": "Default increment",
+  "@defaultIncrement": {
+    "description": "Default increment setting label"
+  },
+  "defaultIncrementDescription": "Quick +/- buttons add {increment} points",
+  "@defaultIncrementDescription": {
+    "description": "Default increment setting description",
+    "placeholders": {
+      "increment": {
+        "type": "int"
+      }
+    }
+  },
+  "showNotesInList": "Show notes in list",
+  "@showNotesInList": {
+    "description": "Show notes in list setting label"
+  },
+  "showNotesInListDescription": "Display entry notes instead of just scores",
+  "@showNotesInListDescription": {
+    "description": "Show notes in list setting description"
+  },
+  "dailyReminder": "Daily reminder",
+  "@dailyReminder": {
+    "description": "Daily reminder setting label"
+  },
+  "remindMeAt": "Remind me at {time}",
+  "@remindMeAt": {
+    "description": "Daily reminder time description",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "noReminderSet": "No reminder set",
+  "@noReminderSet": {
+    "description": "No reminder set description"
+  },
+  "appDescription": "Daily good and bad actions tracker\nVersion 1.0.0",
+  "@appDescription": {
+    "description": "App description text"
+  },
+  "type": "Type",
+  "@type": {
+    "description": "Type label"
+  },
+  "addAction": "Add a {type} action...",
+  "@addAction": {
+    "description": "Add action placeholder text",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "editEntry": "Edit Entry",
+  "@editEntry": {
+    "description": "Edit entry title"
+  },
+  "addEntryTitle": "Add Entry",
+  "@addEntryTitle": {
+    "description": "Add entry title"
+  },
+  "noteOptional": "Note (optional)",
+  "@noteOptional": {
+    "description": "Note optional label"
+  },
+  "addNote2": "Add a note...",
+  "@addNote2": {
+    "description": "Add note placeholder"
+  },
+  "update": "Update",
+  "@update": {
+    "description": "Update button text"
+  },
+  "deleteEntry": "Delete Entry",
+  "@deleteEntry": {
+    "description": "Delete entry dialog title"
+  },
+  "entryDeleted": "Entry deleted",
+  "@entryDeleted": {
+    "description": "Entry deleted message"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Undo action label"
+  },
+  "selectDate": "Select date",
+  "@selectDate": {
+    "description": "Select date help text"
+  },
+  "net": "Net: {score}",
+  "@net": {
+    "description": "Net score display",
+    "placeholders": {
+      "score": {
+        "type": "String"
+      }
+    }
+  },
+  "noEntriesYet": "No {type} entries yet",
+  "@noEntriesYet": {
+    "description": "No entries message",
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
+  "tapToAdd": "Tap + to add a quick entry",
+  "@tapToAdd": {
+    "description": "Tap to add instruction"
   }
 }

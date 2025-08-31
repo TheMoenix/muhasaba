@@ -247,6 +247,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'EEEE, MMMM d, y'**
   String get dateFormat;
+
+  /// Appearance section title
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// Behavior section title
+  ///
+  /// In en, this message translates to:
+  /// **'Behavior'**
+  String get behavior;
+
+  /// Reminders section title
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get reminders;
+
+  /// About section title
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// Default increment setting label
+  ///
+  /// In en, this message translates to:
+  /// **'Default increment'**
+  String get defaultIncrement;
+
+  /// Default increment setting description
+  ///
+  /// In en, this message translates to:
+  /// **'Quick +/- buttons add {increment} points'**
+  String defaultIncrementDescription(int increment);
+
+  /// Show notes in list setting label
+  ///
+  /// In en, this message translates to:
+  /// **'Show notes in list'**
+  String get showNotesInList;
+
+  /// Show notes in list setting description
+  ///
+  /// In en, this message translates to:
+  /// **'Display entry notes instead of just scores'**
+  String get showNotesInListDescription;
+
+  /// Daily reminder setting label
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get dailyReminder;
+
+  /// Daily reminder time description
+  ///
+  /// In en, this message translates to:
+  /// **'Remind me at {time}'**
+  String remindMeAt(String time);
+
+  /// No reminder set description
+  ///
+  /// In en, this message translates to:
+  /// **'No reminder set'**
+  String get noReminderSet;
+
+  /// App description text
+  ///
+  /// In en, this message translates to:
+  /// **'Daily good and bad actions tracker\nVersion 1.0.0'**
+  String get appDescription;
+
+  /// Type label
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// Add action placeholder text
+  ///
+  /// In en, this message translates to:
+  /// **'Add a {type} action...'**
+  String addAction(String type);
+
+  /// Edit entry title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Entry'**
+  String get editEntry;
+
+  /// Add entry title
+  ///
+  /// In en, this message translates to:
+  /// **'Add Entry'**
+  String get addEntryTitle;
+
+  /// Note optional label
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get noteOptional;
+
+  /// Add note placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Add a note...'**
+  String get addNote2;
+
+  /// Update button text
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// Delete entry dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Entry'**
+  String get deleteEntry;
+
+  /// Entry deleted message
+  ///
+  /// In en, this message translates to:
+  /// **'Entry deleted'**
+  String get entryDeleted;
+
+  /// Undo action label
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// Select date help text
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDate;
+
+  /// Net score display
+  ///
+  /// In en, this message translates to:
+  /// **'Net: {score}'**
+  String net(String score);
+
+  /// No entries message
+  ///
+  /// In en, this message translates to:
+  /// **'No {type} entries yet'**
+  String noEntriesYet(String type);
+
+  /// Tap to add instruction
+  ///
+  /// In en, this message translates to:
+  /// **'Tap + to add a quick entry'**
+  String get tapToAdd;
 }
 
 class _AppLocalizationsDelegate

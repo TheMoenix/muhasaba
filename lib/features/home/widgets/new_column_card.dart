@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme.dart';
 import '../../../data/entry_model.dart';
+import '../../../l10n/generated/app_localizations.dart';
 import '../home_controller.dart';
 import 'add_entry_sheet.dart';
 import 'new_entry_tile.dart';
@@ -33,6 +34,7 @@ class _NewColumnCardState extends ConsumerState<NewColumnCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final cardColor = widget.type == EntryType.good
         ? AppTheme.goodColor
         : AppTheme.badColor;
@@ -88,7 +90,7 @@ class _NewColumnCardState extends ConsumerState<NewColumnCard> {
                 controller: _textController,
                 style: const TextStyle(color: AppTheme.textPrimary),
                 decoration: InputDecoration(
-                  hintText: 'Add a ${widget.type.name} action...',
+                  hintText: l10n.addAction(widget.type.name),
                   hintStyle: const TextStyle(color: AppTheme.textSecondary),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(

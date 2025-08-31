@@ -29,7 +29,7 @@ class SettingsPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Appearance',
+                    l10n.appearance,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16),
@@ -61,14 +61,14 @@ class SettingsPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Behavior',
+                    l10n.behavior,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16),
                   ListTile(
-                    title: const Text('Default increment'),
+                    title: Text(l10n.defaultIncrement),
                     subtitle: Text(
-                      'Quick +/- buttons add $defaultIncrement points',
+                      l10n.defaultIncrementDescription(defaultIncrement),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -109,10 +109,8 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                   SwitchListTile(
-                    title: const Text('Show notes in list'),
-                    subtitle: const Text(
-                      'Display entry notes instead of just scores',
-                    ),
+                    title: Text(l10n.showNotesInList),
+                    subtitle: Text(l10n.showNotesInListDescription),
                     value: showNotesInList,
                     onChanged: (value) => controller.setShowNotesInList(value),
                   ),
@@ -130,16 +128,16 @@ class SettingsPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Reminders',
+                    l10n.reminders,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16),
                   ListTile(
-                    title: const Text('Daily reminder'),
+                    title: Text(l10n.dailyReminder),
                     subtitle: Text(
                       dailyReminderTime != null
-                          ? 'Remind me at $dailyReminderTime'
-                          : 'No reminder set',
+                          ? l10n.remindMeAt(dailyReminderTime)
+                          : l10n.noReminderSet,
                     ),
                     trailing: dailyReminderTime != null
                         ? IconButton(
@@ -163,13 +161,14 @@ class SettingsPage extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('About', style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                    l10n.about,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   const SizedBox(height: 16),
-                  const ListTile(
-                    title: Text('Muhasaba'),
-                    subtitle: Text(
-                      'Daily good and bad actions tracker\nVersion 1.0.0',
-                    ),
+                  ListTile(
+                    title: const Text('Muhasaba'),
+                    subtitle: Text(l10n.appDescription),
                     leading: Icon(Icons.info_outline),
                   ),
                 ],
