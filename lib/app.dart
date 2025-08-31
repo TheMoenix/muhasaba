@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:muhasaba/features/settings/settings_page.dart';
 import 'core/theme.dart';
 import 'features/home/home_page.dart';
 import 'features/settings/settings_controller.dart';
@@ -29,6 +30,7 @@ class MuhasabaApp extends ConsumerWidget {
       supportedLocales: const [Locale('en'), Locale('ar')],
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      routes: {'/settings': (context) => const SettingsPage()},
     );
   }
 }
