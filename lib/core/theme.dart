@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // Custom colors to match the design
-  static const Color darkBackground = Color(0xFF101311);
-  static const Color cardBackground = Color(0xFF1C1F1D);
+  static const Color darkBackground = Color(0xFF121212);
+  static const Color cardBackground = Color(0xFF1C1C1E);
   static const Color goodColor = Color(0xFF4ADE80); // green-400
   static const Color badColor = Color(0xFFF87171); // red-400
   static const Color textPrimary = Colors.white;
