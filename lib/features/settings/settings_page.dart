@@ -254,7 +254,7 @@ class SettingsPage extends ConsumerWidget {
                           value: showNotesInList,
                           onChanged: (value) =>
                               controller.setShowNotesInList(value),
-                          activeColor: const Color(0xFF38E07B),
+                          activeThumbColor: const Color(0xFF38E07B),
                           inactiveTrackColor: const Color(0xFF2C2C2C),
                           inactiveThumbColor: Colors.white,
                         ),

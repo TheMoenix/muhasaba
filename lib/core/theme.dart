@@ -38,8 +38,6 @@ class AppTheme {
       secondary: badColor,
       surface: cardBackground,
       onSurface: textPrimary,
-      background: darkBackground,
-      onBackground: textPrimary,
       error: badColor,
       onError: textPrimary,
     ),
