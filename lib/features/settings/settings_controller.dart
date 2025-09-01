@@ -29,6 +29,11 @@ final localeProvider = StateProvider<Locale>((ref) {
   return settingsRepository.locale;
 });
 
+final dayStartTimeProvider = StateProvider<String>((ref) {
+  final settingsRepository = ref.watch(settingsRepositoryProvider);
+  return settingsRepository.dayStartTime;
+});
+
 // Controller
 class SettingsController extends StateNotifier<AsyncValue<void>> {
   SettingsController(this._settingsRepository, this._ref)
@@ -86,6 +91,17 @@ class SettingsController extends StateNotifier<AsyncValue<void>> {
     try {
       await _settingsRepository.setLocale(locale);
       _ref.read(localeProvider.notifier).state = locale;
+      state = const AsyncValue.data(null);
+    } catch (error, stackTrace) {
+      state = AsyncValue.error(error, stackTrace);
+    }
+  }
+
+  Future<void> setDayStartTime(String time) async {
+    state = const AsyncValue.loading();
+    try {
+      await _settingsRepository.setDayStartTime(time);
+      _ref.read(dayStartTimeProvider.notifier).state = time;
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
       state = AsyncValue.error(error, stackTrace);

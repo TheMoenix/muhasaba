@@ -4,6 +4,7 @@ import '../../core/date_utils.dart' as date_utils;
 import '../../data/entry_model.dart';
 import '../../data/entry_repository.dart';
 import '../../data/settings_repository.dart';
+import '../settings/settings_controller.dart';
 
 // Providers
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
@@ -19,16 +20,25 @@ final entryRepositoryProvider = Provider<EntryRepository>((ref) {
   return EntryRepository();
 });
 
+// Provider for the current logical day (updates when day start time changes)
+final currentLogicalDayProvider = Provider<DateTime>((ref) {
+  final dayStartTime = ref.watch(dayStartTimeProvider);
+  return date_utils.DateUtils.todayLogical(dayStartTime);
+});
+
 final selectedDayProvider = StateProvider<DateTime>((ref) {
-  return date_utils.DateUtils.today();
+  // Initialize with current logical day
+  return ref.read(currentLogicalDayProvider);
 });
 
 final dayEntriesProvider = StreamProvider.family<List<DayEntry>, DateTime>((
   ref,
-  date,
+  logicalDate,
 ) {
   final repository = ref.watch(entryRepositoryProvider);
-  return repository.watchEntriesForDate(date);
+  // Watch the day start time provider to make this reactive to changes
+  final dayStartTime = ref.watch(dayStartTimeProvider);
+  return repository.watchEntriesForLogicalDate(logicalDate, dayStartTime);
 });
 
 final dayTotalsProvider =
@@ -95,9 +105,14 @@ class HomeController extends StateNotifier<AsyncValue<void>> {
     }
   }
 
-  Future<bool> undoLastQuickEntry(EntryType type, DateTime date) async {
+  Future<bool> undoLastQuickEntry(EntryType type, DateTime logicalDate) async {
     try {
-      return await _entryRepository.undoLastQuickAdd(type, date);
+      final dayStartTime = _settingsRepository.dayStartTime;
+      return await _entryRepository.undoLastQuickAddLogical(
+        type,
+        logicalDate,
+        dayStartTime,
+      );
     } catch (error) {
       return false;
     }

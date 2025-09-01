@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -27,9 +29,23 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final selectedDay = ref.watch(selectedDayProvider);
+    log('Selected day: $selectedDay');
+    final currentLogicalDay = ref.watch(currentLogicalDayProvider);
+    log('Current logical day: $currentLogicalDay');
     final goodEntries = ref.watch(goodEntriesProvider(selectedDay));
     final badEntries = ref.watch(badEntriesProvider(selectedDay));
     final totals = ref.watch(dayTotalsProvider(selectedDay));
+
+    // Listen for day start time changes and update selected day if it's "today"
+    ref.listen(currentLogicalDayProvider, (previous, next) {
+      if (previous != null && previous != next) {
+        // If the current selected day was the previous "today", update it to the new "today"
+        final currentSelected = ref.read(selectedDayProvider);
+        if (date_utils.DateUtils.isSameDay(currentSelected, previous)) {
+          ref.read(selectedDayProvider.notifier).state = next;
+        }
+      }
+    });
 
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
@@ -94,7 +110,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                             vertical: 4,
                           ),
                           child: Text(
-                            date_utils.DateUtils.isToday(selectedDay)
+                            date_utils.DateUtils.isSameDay(
+                                  selectedDay,
+                                  currentLogicalDay,
+                                )
                                 ? l10n.today
                                 : DateFormat(
                                     l10n.dateFormatShort,
@@ -120,9 +139,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             final nextDay = date_utils.DateUtils.nextDay(
                               selectedDay,
                             );
-                            if (!nextDay.isAfter(
-                              date_utils.DateUtils.today(),
-                            )) {
+                            if (!nextDay.isAfter(currentLogicalDay)) {
                               ref.read(selectedDayProvider.notifier).state =
                                   nextDay;
                             }
@@ -132,7 +149,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             color:
                                 date_utils.DateUtils.nextDay(
                                   selectedDay,
-                                ).isAfter(date_utils.DateUtils.today())
+                                ).isAfter(currentLogicalDay)
                                 ? Colors.white.withValues(alpha: 0.3)
                                 : Colors.white,
                           ),
@@ -390,11 +407,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     if (text.trim().isNotEmpty) {
       final controller = ref.read(homeControllerProvider.notifier);
       final selectedDay = ref.read(selectedDayProvider);
+      final dateWithCurrentTime =
+          date_utils.DateUtils.combineDateWithCurrentTime(selectedDay);
       controller.addEntry(
         type: EntryType.good,
         score: 1,
         note: text.trim(),
-        date: selectedDay,
+        date: dateWithCurrentTime,
       );
       _textController.clear();
     }
@@ -404,6 +423,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(homeControllerProvider.notifier);
     final selectedDay = ref.read(selectedDayProvider);
+    final dateWithCurrentTime = date_utils.DateUtils.combineDateWithCurrentTime(
+      selectedDay,
+    );
     final text = _textController.text.trim();
     final note = text.isNotEmpty
         ? text
@@ -411,7 +433,12 @@ class _HomePageState extends ConsumerState<HomePage> {
               ? l10n.defaultGoodAction
               : l10n.defaultBadAction);
 
-    controller.addEntry(type: type, score: 1, note: note, date: selectedDay);
+    controller.addEntry(
+      type: type,
+      score: 1,
+      note: note,
+      date: dateWithCurrentTime,
+    );
 
     // Clear the text field if it had content
     if (text.isNotEmpty) {
@@ -485,6 +512,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
 
     if (picked != null) {
+      // When picking a date, we want to select the logical day that contains that calendar date
+      // So we normalize it as a regular day (the calendar date the user picked)
       ref.read(selectedDayProvider.notifier).state =
           date_utils.DateUtils.normalizeDay(picked);
     }

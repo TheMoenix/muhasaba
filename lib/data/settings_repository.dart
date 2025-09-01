@@ -7,6 +7,7 @@ class SettingsRepository {
   static const String _showNotesInListKey = 'showNotesInList';
   static const String _dailyReminderTimeKey = 'dailyReminderTime';
   static const String _languageKey = 'language';
+  static const String _dayStartTimeKey = 'dayStartTime';
 
   final SharedPreferences _prefs;
 
@@ -82,6 +83,15 @@ class SettingsRepository {
     await _prefs.setString(_languageKey, locale.languageCode);
   }
 
+  // Day Start Time
+  String get dayStartTime {
+    return _prefs.getString(_dayStartTimeKey) ?? '06:00'; // Default to 6:00 AM
+  }
+
+  Future<void> setDayStartTime(String time) async {
+    await _prefs.setString(_dayStartTimeKey, time);
+  }
+
   // Initialize with defaults if first run
   Future<void> initializeDefaults() async {
     if (!_prefs.containsKey(_themeModeKey)) {
@@ -95,6 +105,9 @@ class SettingsRepository {
     }
     if (!_prefs.containsKey(_languageKey)) {
       await setLocale(const Locale('ar')); // Default to Arabic
+    }
+    if (!_prefs.containsKey(_dayStartTimeKey)) {
+      await setDayStartTime('06:00'); // Default to 6:00 AM
     }
   }
 }
