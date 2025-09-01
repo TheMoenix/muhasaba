@@ -439,6 +439,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No bad actions today'**
   String get noBadActionsToday;
+
+  /// General section title
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// Actions section title
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get actions;
+
+  /// Notifications section title
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// Start time of day setting label
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time of the Day'**
+  String get startTimeOfDay;
+
+  /// Default increment setting short label
+  ///
+  /// In en, this message translates to:
+  /// **'Default Increment'**
+  String get defaultIncrementShort;
+
+  /// Show notes in entries setting label
+  ///
+  /// In en, this message translates to:
+  /// **'Show Notes in Entries'**
+  String get showNotesInEntries;
 }
 
 class _AppLocalizationsDelegate

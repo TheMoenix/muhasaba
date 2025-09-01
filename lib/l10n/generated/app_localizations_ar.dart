@@ -192,4 +192,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noBadActionsToday => 'لا توجد أعمال سيئة اليوم';
+
+  @override
+  String get general => 'عام';
+
+  @override
+  String get actions => 'الأعمال';
+
+  @override
+  String get notifications => 'الإشعارات';
+
+  @override
+  String get startTimeOfDay => 'وقت بداية اليوم';
+
+  @override
+  String get defaultIncrementShort => 'الزيادة الافتراضية';
+
+  @override
+  String get showNotesInEntries => 'إظهار الملاحظات في الإدخالات';
 }

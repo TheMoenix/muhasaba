@@ -257,5 +257,29 @@
   "noBadActionsToday": "No bad actions today",
   "@noBadActionsToday": {
     "description": "Empty state message for bad actions"
+  },
+  "general": "General",
+  "@general": {
+    "description": "General section title"
+  },
+  "actions": "Actions",
+  "@actions": {
+    "description": "Actions section title"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications section title"
+  },
+  "startTimeOfDay": "Start Time of the Day",
+  "@startTimeOfDay": {
+    "description": "Start time of day setting label"
+  },
+  "defaultIncrementShort": "Default Increment",
+  "@defaultIncrementShort": {
+    "description": "Default increment setting short label"
+  },
+  "showNotesInEntries": "Show Notes in Entries",
+  "@showNotesInEntries": {
+    "description": "Show notes in entries setting label"
   }
 }

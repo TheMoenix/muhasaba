@@ -194,4 +194,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noBadActionsToday => 'No bad actions today';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get startTimeOfDay => 'Start Time of the Day';
+
+  @override
+  String get defaultIncrementShort => 'Default Increment';
+
+  @override
+  String get showNotesInEntries => 'Show Notes in Entries';
 }

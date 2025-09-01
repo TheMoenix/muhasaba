@@ -83,7 +83,10 @@ class SettingsPage extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Theme', style: TextStyle(fontSize: 16)),
+                        Text(
+                          l10n.theme,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                         Row(
                           children: [
                             RadioGroup<ThemeMode>(
@@ -94,19 +97,19 @@ class SettingsPage extends ConsumerWidget {
                                 children: [
                                   Radio<ThemeMode>(value: ThemeMode.system),
                                   Text(
-                                    'System',
+                                    l10n.themeSystem,
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                   const SizedBox(width: 16),
                                   Radio<ThemeMode>(value: ThemeMode.light),
                                   Text(
-                                    'Light',
+                                    l10n.themeLight,
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                   const SizedBox(width: 16),
                                   Radio<ThemeMode>(value: ThemeMode.dark),
                                   Text(
-                                    'Dark',
+                                    l10n.themeDark,
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                 ],
@@ -126,7 +129,7 @@ class SettingsPage extends ConsumerWidget {
           // General Section
           _buildSection(
             context,
-            title: 'General',
+            title: l10n.general,
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
@@ -137,9 +140,9 @@ class SettingsPage extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Start Time of the Day',
-                      style: TextStyle(fontSize: 16),
+                    Text(
+                      l10n.startTimeOfDay,
+                      style: const TextStyle(fontSize: 16),
                     ),
                     GestureDetector(
                       onTap: () =>
@@ -172,7 +175,7 @@ class SettingsPage extends ConsumerWidget {
           // Actions Section
           _buildSection(
             context,
-            title: 'Actions',
+            title: l10n.actions,
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
@@ -185,9 +188,9 @@ class SettingsPage extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Default Increment',
-                          style: TextStyle(fontSize: 16),
+                        Text(
+                          l10n.defaultIncrementShort,
+                          style: const TextStyle(fontSize: 16),
                         ),
                         Row(
                           children: [
@@ -241,9 +244,9 @@ class SettingsPage extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Show Notes in Entries',
-                          style: TextStyle(fontSize: 16),
+                        Text(
+                          l10n.showNotesInEntries,
+                          style: const TextStyle(fontSize: 16),
                         ),
                         Switch(
                           value: showNotesInList,
@@ -263,7 +266,7 @@ class SettingsPage extends ConsumerWidget {
           // Notifications Section
           _buildSection(
             context,
-            title: 'Notifications',
+            title: l10n.notifications,
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
@@ -274,9 +277,9 @@ class SettingsPage extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Daily Reminder',
-                      style: TextStyle(fontSize: 16),
+                    Text(
+                      l10n.dailyReminder,
+                      style: const TextStyle(fontSize: 16),
                     ),
                     GestureDetector(
                       onTap: () => _showTimeSelector(context, ref, controller),
@@ -305,7 +308,10 @@ class SettingsPage extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ListTile(
-                title: const Text('Muhasaba', style: TextStyle(fontSize: 16)),
+                title: Text(
+                  l10n.appTitleShort,
+                  style: const TextStyle(fontSize: 16),
+                ),
                 subtitle: Text(
                   l10n.appDescription,
                   style: const TextStyle(color: Colors.grey, fontSize: 14),

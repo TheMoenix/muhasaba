@@ -56,5 +56,11 @@
   "defaultGoodAction": "عمل جيد",
   "defaultBadAction": "عمل سيء",
   "noGoodActionsToday": "لا توجد أعمال جيدة اليوم",
-  "noBadActionsToday": "لا توجد أعمال سيئة اليوم"
+  "noBadActionsToday": "لا توجد أعمال سيئة اليوم",
+  "general": "عام",
+  "actions": "الأعمال",
+  "notifications": "الإشعارات",
+  "startTimeOfDay": "وقت بداية اليوم",
+  "defaultIncrementShort": "الزيادة الافتراضية",
+  "showNotesInEntries": "إظهار الملاحظات في الإدخالات"
 }
