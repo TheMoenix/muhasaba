@@ -5,6 +5,7 @@ import '../../core/date_utils.dart' as date_utils;
 import '../../core/theme.dart';
 import '../../data/entry_model.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../settings/settings_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -290,6 +291,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     required EntryType type,
     required AppLocalizations l10n,
   }) {
+    final showNotesInEntries = ref.watch(showNotesInListProvider);
+    
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
@@ -324,10 +327,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: Text(
-                            dayEntry.note ?? '',
-                            style: const TextStyle(fontSize: 16),
-                          ),
+                          child: showNotesInEntries 
+                              ? Text(
+                                  dayEntry.note ?? '',
+                                  style: const TextStyle(fontSize: 16),
+                                )
+                              : Text(
+                                  _maskText(dayEntry.note ?? ''),
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                         ),
                         Text(
                           type == EntryType.good
@@ -363,15 +374,22 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
+  String _maskText(String text) {
+    if (text.isEmpty) return text;
+    // Replace each non-whitespace character with a bullet point
+    return text.replaceAll(RegExp(r'\S'), '•');
+  }
+
   void _handleQuickAdd(String text) {
     if (text.trim().isNotEmpty) {
       final controller = ref.read(homeControllerProvider.notifier);
       final selectedDay = ref.read(selectedDayProvider);
+      final defaultIncrement = ref.read(defaultIncrementProvider);
       final dateWithCurrentTime =
           date_utils.DateUtils.combineDateWithCurrentTime(selectedDay);
       controller.addEntry(
         type: EntryType.good,
-        score: 1,
+        score: defaultIncrement,
         note: text.trim(),
         date: dateWithCurrentTime,
       );
@@ -383,6 +401,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(homeControllerProvider.notifier);
     final selectedDay = ref.read(selectedDayProvider);
+    final defaultIncrement = ref.read(defaultIncrementProvider);
     final dateWithCurrentTime = date_utils.DateUtils.combineDateWithCurrentTime(
       selectedDay,
     );
@@ -395,7 +414,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     controller.addEntry(
       type: type,
-      score: 1,
+      score: defaultIncrement,
       note: note,
       date: dateWithCurrentTime,
     );
