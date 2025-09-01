@@ -133,7 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 date_utils.DateUtils.nextDay(
                                   selectedDay,
                                 ).isAfter(date_utils.DateUtils.today())
-                                ? Colors.white.withOpacity(0.3)
+                                ? Colors.white.withValues(alpha: 0.3)
                                 : Colors.white,
                           ),
                           iconSize: 20,
@@ -167,14 +167,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Text(
                   ' | ',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     fontSize: 14,
                   ),
                 ),
                 Text(
                   l10n.net(totals.net.toString()),
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withValues(alpha: 0.8),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -182,7 +182,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Text(
                   ' | ',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                     fontSize: 14,
                   ),
                 ),
@@ -375,7 +375,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ? l10n.noGoodActionsToday
                     : l10n.noBadActionsToday,
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withValues(alpha: 0.5),
                   fontSize: 14,
                 ),
                 textAlign: TextAlign.center,
