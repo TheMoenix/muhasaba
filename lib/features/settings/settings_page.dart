@@ -60,18 +60,27 @@ class SettingsPage extends ConsumerWidget {
                         ),
                         Row(
                           children: [
-                            _buildLanguageOption(
-                              const Locale('en'),
-                              l10n.english,
-                              locale,
-                              controller,
-                            ),
-                            const SizedBox(width: 16),
-                            _buildLanguageOption(
-                              const Locale('ar'),
-                              l10n.arabic,
-                              locale,
-                              controller,
+                            RadioGroup<Locale>(
+                              groupValue: locale,
+                              onChanged: (value) =>
+                                  controller.setLocale(value!),
+                              child: Row(
+                                children: [
+                                  _buildLanguageOption(
+                                    const Locale('en'),
+                                    l10n.english,
+                                    locale,
+                                    controller,
+                                  ),
+                                  const SizedBox(width: 16),
+                                  _buildLanguageOption(
+                                    const Locale('ar'),
+                                    l10n.arabic,
+                                    locale,
+                                    controller,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -91,25 +100,34 @@ class SettingsPage extends ConsumerWidget {
                         ),
                         Row(
                           children: [
-                            _buildThemeOption(
-                              ThemeMode.system,
-                              'System',
-                              themeMode,
-                              controller,
-                            ),
-                            const SizedBox(width: 16),
-                            _buildThemeOption(
-                              ThemeMode.light,
-                              'Light',
-                              themeMode,
-                              controller,
-                            ),
-                            const SizedBox(width: 16),
-                            _buildThemeOption(
-                              ThemeMode.dark,
-                              'Dark',
-                              themeMode,
-                              controller,
+                            RadioGroup<ThemeMode>(
+                              groupValue: themeMode,
+                              onChanged: (value) =>
+                                  controller.setThemeMode(value!),
+                              child: Row(
+                                children: [
+                                  _buildThemeOption(
+                                    ThemeMode.system,
+                                    'System',
+                                    themeMode,
+                                    controller,
+                                  ),
+                                  const SizedBox(width: 16),
+                                  _buildThemeOption(
+                                    ThemeMode.light,
+                                    'Light',
+                                    themeMode,
+                                    controller,
+                                  ),
+                                  const SizedBox(width: 16),
+                                  _buildThemeOption(
+                                    ThemeMode.dark,
+                                    'Dark',
+                                    themeMode,
+                                    controller,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -357,12 +375,7 @@ class SettingsPage extends ConsumerWidget {
       onTap: () => controller.setThemeMode(mode),
       child: Row(
         children: [
-          Radio<ThemeMode>(
-            value: mode,
-            groupValue: currentMode,
-            onChanged: (value) => controller.setThemeMode(value!),
-            activeColor: const Color(0xFF38E07B),
-          ),
+          Radio<ThemeMode>(value: mode, activeColor: const Color(0xFF38E07B)),
           Text(
             label,
             style: const TextStyle(color: Colors.white, fontSize: 14),
@@ -382,12 +395,7 @@ class SettingsPage extends ConsumerWidget {
       onTap: () => controller.setLocale(locale),
       child: Row(
         children: [
-          Radio<Locale>(
-            value: locale,
-            groupValue: currentLocale,
-            onChanged: (value) => controller.setLocale(value!),
-            activeColor: const Color(0xFF38E07B),
-          ),
+          Radio<Locale>(value: locale, activeColor: const Color(0xFF38E07B)),
           Text(
             label,
             style: const TextStyle(color: Colors.white, fontSize: 14),
