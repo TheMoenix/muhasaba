@@ -29,6 +29,6 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify that our app shows the main page with expected elements
-    expect(find.text('Muhasaba'), findsOneWidget);
+    expect(find.text('اليوم'), findsOneWidget);
   });
 }
