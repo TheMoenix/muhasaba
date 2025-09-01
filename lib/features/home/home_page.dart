@@ -688,6 +688,7 @@ class _PressAndHoldButtonState extends State<_PressAndHoldButton>
                     : null,
               ),
               child: Stack(
+                clipBehavior: Clip.none,
                 alignment: Alignment.center,
                 children: [
                   Icon(
