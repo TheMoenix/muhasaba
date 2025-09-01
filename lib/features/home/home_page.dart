@@ -276,83 +276,103 @@ class _HomePageState extends ConsumerState<HomePage> {
   }) {
     final showNotesInEntries = ref.watch(showNotesInListProvider);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        children: [
-          if (entries.isNotEmpty)
-            ...entries.asMap().entries.map((entry) {
-              final index = entry.key;
-              final dayEntry = entry.value;
-              final isLast = index == entries.length - 1;
+    return Expanded(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (entries.isNotEmpty) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: constraints.maxHeight,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: entries.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final dayEntry = entry.value;
+                        final isLast = index == entries.length - 1;
 
-              return GestureDetector(
-                onTap: () => _showDeleteDialog(dayEntry),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: isLast
-                        ? null
-                        : const Border(
-                            bottom: BorderSide(
-                              color: Color(0xFF2A2A2E),
-                              width: 1,
+                        return GestureDetector(
+                          onTap: () => _showDeleteDialog(dayEntry),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: isLast
+                                  ? null
+                                  : const Border(
+                                      bottom: BorderSide(
+                                        color: Color(0xFF2A2A2E),
+                                        width: 1,
+                                      ),
+                                    ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 12,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: showNotesInEntries
+                                        ? Text(
+                                            dayEntry.note ?? '',
+                                            style: const TextStyle(fontSize: 16),
+                                          )
+                                        : Text(
+                                            _maskText(dayEntry.note ?? ''),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                  ),
+                                  Text(
+                                    type == EntryType.good
+                                        ? '+${dayEntry.score}'
+                                        : '-${dayEntry.score}',
+                                    style: TextStyle(
+                                      color: type == EntryType.good
+                                          ? AppTheme.goodColor
+                                          : AppTheme.badColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: showNotesInEntries
-                              ? Text(
-                                  dayEntry.note ?? '',
-                                  style: const TextStyle(fontSize: 16),
-                                )
-                              : Text(
-                                  _maskText(dayEntry.note ?? ''),
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                        ),
-                        Text(
-                          type == EntryType.good
-                              ? '+${dayEntry.score}'
-                              : '-${dayEntry.score}',
-                          style: TextStyle(
-                            color: type == EntryType.good
-                                ? AppTheme.goodColor
-                                : AppTheme.badColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     ),
                   ),
                 ),
               );
-            })
-          else
-            Container(
-              padding: const EdgeInsets.all(32),
-              child: Text(
-                type == EntryType.good
-                    ? l10n.noGoodActionsToday
-                    : l10n.noBadActionsToday,
-                style: TextStyle(fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
-            ),
-        ],
+            } else {
+              return SizedBox(
+                height: constraints.maxHeight,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Text(
+                      type == EntryType.good
+                          ? l10n.noGoodActionsToday
+                          : l10n.noBadActionsToday,
+                      style: TextStyle(fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              );
+            }
+          },
+        ),
       ),
     );
   }
