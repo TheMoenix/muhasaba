@@ -411,22 +411,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: AppTheme.cardBackground,
-        title: Text(
-          l10n.deleteEntry,
-          style: const TextStyle(color: AppTheme.textPrimary),
-        ),
-        content: Text(
-          l10n.deleteEntryConfirm,
-          style: const TextStyle(color: AppTheme.textPrimary),
-        ),
+        title: Text(l10n.deleteEntry),
+        content: Text(l10n.deleteEntryConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              l10n.cancel,
-              style: const TextStyle(color: AppTheme.textSecondary),
-            ),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
