@@ -57,20 +57,16 @@ class SettingsPage extends ConsumerWidget {
                                   controller.setLocale(value!),
                               child: Row(
                                 children: [
-                                  _buildLanguageOption(
-                                    context,
-                                    const Locale('en'),
+                                  Radio<Locale>(value: const Locale('en')),
+                                  Text(
                                     l10n.english,
-                                    locale,
-                                    controller,
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                   const SizedBox(width: 16),
-                                  _buildLanguageOption(
-                                    context,
-                                    const Locale('ar'),
+                                  Radio<Locale>(value: const Locale('ar')),
+                                  Text(
                                     l10n.arabic,
-                                    locale,
-                                    controller,
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                 ],
                               ),
@@ -96,28 +92,22 @@ class SettingsPage extends ConsumerWidget {
                                   controller.setThemeMode(value!),
                               child: Row(
                                 children: [
-                                  _buildThemeOption(
-                                    context,
-                                    ThemeMode.system,
+                                  Radio<ThemeMode>(value: ThemeMode.system),
+                                  Text(
                                     'System',
-                                    themeMode,
-                                    controller,
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                   const SizedBox(width: 16),
-                                  _buildThemeOption(
-                                    context,
-                                    ThemeMode.light,
+                                  Radio<ThemeMode>(value: ThemeMode.light),
+                                  Text(
                                     'Light',
-                                    themeMode,
-                                    controller,
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                   const SizedBox(width: 16),
-                                  _buildThemeOption(
-                                    context,
-                                    ThemeMode.dark,
+                                  Radio<ThemeMode>(value: ThemeMode.dark),
+                                  Text(
                                     'Dark',
-                                    themeMode,
-                                    controller,
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                 ],
                               ),
@@ -350,48 +340,6 @@ class SettingsPage extends ConsumerWidget {
         ),
         child,
       ],
-    );
-  }
-
-  Widget _buildThemeOption(
-    BuildContext context,
-    ThemeMode mode,
-    String label,
-    ThemeMode currentMode,
-    SettingsController controller,
-  ) {
-    return GestureDetector(
-      onTap: () => controller.setThemeMode(mode),
-      child: Row(
-        children: [
-          Radio<ThemeMode>(
-            value: mode,
-            activeColor: Theme.of(context).primaryColor,
-          ),
-          Text(label, style: const TextStyle(fontSize: 14)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLanguageOption(
-    BuildContext context,
-    Locale locale,
-    String label,
-    Locale currentLocale,
-    SettingsController controller,
-  ) {
-    return GestureDetector(
-      onTap: () => controller.setLocale(locale),
-      child: Row(
-        children: [
-          Radio<Locale>(
-            value: locale,
-            activeColor: Theme.of(context).primaryColor,
-          ),
-          Text(label, style: const TextStyle(fontSize: 14)),
-        ],
-      ),
     );
   }
 
