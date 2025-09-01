@@ -407,9 +407,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     final dateWithCurrentTime = date_utils.DateUtils.combineDateWithCurrentTime(
       selectedDay,
     );
-    final note = type == EntryType.good
-        ? l10n.defaultGoodAction
-        : l10n.defaultBadAction;
+    final text = _textController.text.trim();
+    final note = text.isNotEmpty
+        ? text
+        : (type == EntryType.good
+              ? l10n.defaultGoodAction
+              : l10n.defaultBadAction);
 
     controller.addEntry(
       type: type,
@@ -417,6 +420,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       note: note,
       date: dateWithCurrentTime,
     );
+
+    // Clear the text field if it had content
+    if (text.isNotEmpty) {
+      _textController.clear();
+    }
   }
 
   void _addQuickEntry(EntryType type) {
