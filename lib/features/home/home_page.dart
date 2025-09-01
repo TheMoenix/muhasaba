@@ -389,7 +389,13 @@ class _HomePageState extends ConsumerState<HomePage> {
   void _handleQuickAdd(String text) {
     if (text.trim().isNotEmpty) {
       final controller = ref.read(homeControllerProvider.notifier);
-      controller.addEntry(type: EntryType.good, score: 1, note: text.trim());
+      final selectedDay = ref.read(selectedDayProvider);
+      controller.addEntry(
+        type: EntryType.good,
+        score: 1,
+        note: text.trim(),
+        date: selectedDay,
+      );
       _textController.clear();
     }
   }
@@ -397,6 +403,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   void _addQuickEntry(EntryType type) {
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(homeControllerProvider.notifier);
+    final selectedDay = ref.read(selectedDayProvider);
     final text = _textController.text.trim();
     final note = text.isNotEmpty
         ? text
@@ -404,7 +411,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ? l10n.defaultGoodAction
               : l10n.defaultBadAction);
 
-    controller.addEntry(type: type, score: 1, note: note);
+    controller.addEntry(type: type, score: 1, note: note, date: selectedDay);
 
     // Clear the text field if it had content
     if (text.isNotEmpty) {
