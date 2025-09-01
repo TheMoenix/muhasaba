@@ -288,9 +288,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             if (entries.isNotEmpty) {
               return SingleChildScrollView(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraints.maxHeight,
-                  ),
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
                     child: Column(
                       children: entries.asMap().entries.map((entry) {
@@ -322,7 +320,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     child: showNotesInEntries
                                         ? Text(
                                             dayEntry.note ?? '',
-                                            style: const TextStyle(fontSize: 16),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
                                           )
                                         : Text(
                                             _maskText(dayEntry.note ?? ''),
