@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -29,9 +27,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final selectedDay = ref.watch(selectedDayProvider);
-    log('Selected day: $selectedDay');
     final currentLogicalDay = ref.watch(currentLogicalDayProvider);
-    log('Current logical day: $currentLogicalDay');
     final goodEntries = ref.watch(goodEntriesProvider(selectedDay));
     final badEntries = ref.watch(badEntriesProvider(selectedDay));
     final totals = ref.watch(dayTotalsProvider(selectedDay));
@@ -48,7 +44,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     });
 
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
       body: Column(
         children: [
           // Header
@@ -70,7 +65,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: IconButton(
                       onPressed: () =>
                           Navigator.pushNamed(context, '/settings'),
-                      icon: const Icon(Icons.settings, color: Colors.white),
+                      icon: const Icon(Icons.settings),
                       iconSize: 20,
                       padding: EdgeInsets.zero,
                     ),
@@ -93,10 +88,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ref.read(selectedDayProvider.notifier).state =
                                 previousDay;
                           },
-                          icon: const Icon(
-                            Icons.chevron_left,
-                            color: Colors.white,
-                          ),
+                          icon: const Icon(Icons.chevron_left),
                           iconSize: 20,
                           padding: EdgeInsets.zero,
                         ),
@@ -120,7 +112,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     l10n.localeName,
                                   ).format(selectedDay),
                             style: const TextStyle(
-                              color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -144,15 +135,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   nextDay;
                             }
                           },
-                          icon: Icon(
-                            Icons.chevron_right,
-                            color:
-                                date_utils.DateUtils.nextDay(
-                                  selectedDay,
-                                ).isAfter(currentLogicalDay)
-                                ? Colors.white.withValues(alpha: 0.3)
-                                : Colors.white,
-                          ),
+                          icon: Icon(Icons.chevron_right),
                           iconSize: 20,
                           padding: EdgeInsets.zero,
                         ),
@@ -181,28 +164,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(
-                  ' | ',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.5),
-                    fontSize: 14,
-                  ),
-                ),
+                Text(' | ', style: TextStyle(fontSize: 14)),
                 Text(
                   l10n.net(totals.net.toString()),
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
-                Text(
-                  ' | ',
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.5),
-                    fontSize: 14,
-                  ),
-                ),
+                Text(' | ', style: TextStyle(fontSize: 14)),
                 Text(
                   '${l10n.bad}: ${totals.bad}',
                   style: const TextStyle(
@@ -251,7 +218,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               top: false,
               child: Container(
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1C1C1E),
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
@@ -278,7 +245,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     Expanded(
                       child: TextField(
                         controller: _textController,
-                        style: const TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintText: l10n.addActionPlaceholder,
@@ -326,7 +292,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -360,10 +326,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         Expanded(
                           child: Text(
                             dayEntry.note ?? '',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ),
                         Text(
@@ -391,10 +354,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 type == EntryType.good
                     ? l10n.noGoodActionsToday
                     : l10n.noBadActionsToday,
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.5),
-                  fontSize: 14,
-                ),
+                style: TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -499,11 +459,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.dark(
+            colorScheme: Theme.of(context).colorScheme.copyWith(
               primary: AppTheme.goodColor,
-              onPrimary: Colors.black,
-              surface: AppTheme.cardBackground,
-              onSurface: AppTheme.textPrimary,
+              onPrimary: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.black
+                  : Colors.white,
             ),
           ),
           child: child!,

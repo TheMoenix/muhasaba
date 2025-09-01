@@ -16,16 +16,81 @@ class AppTheme {
     colorScheme: const ColorScheme.light(
       primary: goodColor,
       secondary: badColor,
-      surface: Colors.white,
+      surface: Color(0xFFF5F5F5),
       onSurface: Colors.black87,
       error: badColor,
     ),
     scaffoldBackgroundColor: Colors.white,
-    cardTheme: const CardThemeData(elevation: 2, color: Colors.white),
+    cardTheme: const CardThemeData(
+      elevation: 2,
+      color: Color(0xFFF5F5F5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+      ),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black87,
       elevation: 0,
+      centerTitle: true,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.transparent,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24),
+        borderSide: const BorderSide(color: Colors.grey, width: 2),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24),
+        borderSide: const BorderSide(color: Colors.grey, width: 2),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(24),
+        borderSide: const BorderSide(color: goodColor, width: 2),
+      ),
+      hintStyle: const TextStyle(color: Colors.grey),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(
+        foregroundColor: Colors.black87,
+        backgroundColor: Colors.transparent,
+        minimumSize: const Size(40, 40),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFFF5F5F5),
+        foregroundColor: Colors.black87,
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+    ),
+    textTheme: const TextTheme(
+      headlineLarge: TextStyle(
+        color: Colors.black87,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+      headlineMedium: TextStyle(
+        color: Colors.black87,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      titleLarge: TextStyle(
+        color: Colors.black87,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: TextStyle(
+        color: Colors.black87,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+      bodyLarge: TextStyle(color: Colors.black87, fontSize: 16),
+      bodyMedium: TextStyle(color: Colors.black87, fontSize: 14),
+      bodySmall: TextStyle(color: Colors.grey, fontSize: 12),
     ),
   );
 
