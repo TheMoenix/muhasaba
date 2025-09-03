@@ -57,6 +57,9 @@ final myProvider = Provider.family<ReturnType, InputType>((ref, input) {
 ```bash
 # Run when changing Hive models or ARB files
 flutter packages pub run build_runner build
+
+# For development with auto-rebuild on changes
+flutter packages pub run build_runner watch
 ```
 
 ### Testing & Running
@@ -87,8 +90,9 @@ flutter run              # Development run
 
 - `DayEntry` model with `EntryType.good`/`bad`, numeric scores, optional notes
 - "Quick add" entries (no notes) vs full entries with notes/custom dates
-- Undo functionality specifically for last quick adds
-- Repository streams provide reactive UI updates
+- Undo functionality specifically for last quick adds (only entries with `note == null`)
+- Repository streams provide reactive UI updates via `watchEntriesForLogicalDate`
+- Entries sorted by date descending (most recent first) in all repository methods
 
 ### State Dependencies
 
@@ -113,6 +117,7 @@ final myProvider = Provider((ref) {
 - **SharedPreferences**: Settings persistence with defaults initialization
 - **Material 3**: Custom theme in `core/theme.dart` with dark/light variants
 - **ProviderScope**: Root-level dependency injection for SharedPreferences
+- **Main Initialization**: Async setup in `main()` - Hive, SharedPreferences, settings defaults
 
 ## Common Tasks
 
