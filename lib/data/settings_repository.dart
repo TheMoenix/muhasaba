@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:ui' as ui;
 
 class SettingsRepository {
   static const String _themeModeKey = 'themeMode';
@@ -74,9 +75,20 @@ class SettingsRepository {
 
   // Language
   Locale get locale {
-    final languageCode =
-        _prefs.getString(_languageKey) ?? 'ar'; // Default to Arabic
-    return Locale(languageCode);
+    final languageCode = _prefs.getString(_languageKey);
+    if (languageCode != null) {
+      return Locale(languageCode);
+    }
+
+    // Default to device language if supported, otherwise fallback to Arabic
+    final deviceLocale = ui.PlatformDispatcher.instance.locale;
+    final supportedLanguages = ['en', 'ar'];
+
+    if (supportedLanguages.contains(deviceLocale.languageCode)) {
+      return deviceLocale;
+    }
+
+    return const Locale('ar'); // Fallback to Arabic
   }
 
   Future<void> setLocale(Locale locale) async {
@@ -104,7 +116,15 @@ class SettingsRepository {
       await setShowNotesInList(true);
     }
     if (!_prefs.containsKey(_languageKey)) {
-      await setLocale(const Locale('ar')); // Default to Arabic
+      // Set to device language if supported, otherwise fallback to Arabic
+      final deviceLocale = ui.PlatformDispatcher.instance.locale;
+      final supportedLanguages = ['en', 'ar'];
+
+      if (supportedLanguages.contains(deviceLocale.languageCode)) {
+        await setLocale(deviceLocale);
+      } else {
+        await setLocale(const Locale('ar')); // Fallback to Arabic
+      }
     }
     if (!_prefs.containsKey(_dayStartTimeKey)) {
       await setDayStartTime('06:00'); // Default to 6:00 AM
