@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "appTitle": "Muhasaba - Daily Action Tracker",
+  "appTitle": "Muhasaba",
   "@appTitle": {
     "description": "The title of the application"
   },

@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In en, this message translates to:
-  /// **'Muhasaba - Daily Action Tracker'**
+  /// **'Muhasaba'**
   String get appTitle;
 
   /// The short title of the application
