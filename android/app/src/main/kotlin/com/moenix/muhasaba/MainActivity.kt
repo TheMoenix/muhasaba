@@ -1,4 +1,4 @@
-package com.example.muhasaba
+package com.moenix.muhasaba
 
 import io.flutter.embedding.android.FlutterActivity
 
